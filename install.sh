@@ -26,4 +26,3 @@ else
 		echo "so .jag_vimrc" >> ~/.bashrc
 	fi
 fi
-
