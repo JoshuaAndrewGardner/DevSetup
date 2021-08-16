@@ -14,3 +14,15 @@ else
 	fi
 fi
 
+cp .jag_vimrc ~/.jag_vimrc
+if test -f "~/.vimrc"; then
+	# Create bachrc
+	echo "so .jag_vimrc" >> ~/.bashrc
+else
+	# Ensure bashrc is sourcing .jag_bashrc
+	source_count=`cat ~/.vimrc | grep "so ~\/\.jag_vimrc" | wc -l`
+	if [[ "$source_count" -eq "0" ]]; then
+		echo "so .jag_vimrc" >> ~/.bashrc
+	fi
+fi
+
