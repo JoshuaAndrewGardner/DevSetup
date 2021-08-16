@@ -2,6 +2,7 @@
 
 ./update_files.sh
 
+cp git-completion.bash ~/git-completion.bash
 cp .jag_bashrc ~/.jag_bashrc
 if test -f "~/.bashrc"; then
 	# Create bachrc
