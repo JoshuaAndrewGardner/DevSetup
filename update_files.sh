@@ -4,3 +4,6 @@ curl -L https://github.com/JoshuaAndrewGardner/DevSetup/archive/refs/heads/maste
 unzip master.zip
 
 cp DevSetup-master/* .
+
+rm -rf DevSetup-master
+rm master.zip
