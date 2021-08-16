@@ -1,0 +1,50 @@
+function gcam() {
+	git commit -am "$*"
+}
+
+function gcm() {
+	git commit -m "$*"
+}
+
+function glog {
+  local messageWidth=$(( 120 < (COLUMNS/2) ? 120 : (COLUMNS/2)))
+  if (( COLUMNS > 150 )); then
+    local branchNamesFormat='|%Cgreen%<(50,trunc)%d'
+  fi
+  git log --color=always --decorate \
+    --pretty=format:"%C(yellow)%h|%Cred%cd|%Cgreen%<(20,trunc)%an|%Creset%<($messageWidth,trunc)%s$branchNamesFormat" \
+    --date=relative -n 100 "$@" \
+    | column --table -s '|' \
+    | less -r
+}
+
+alias glog=glog
+alias gl='glog'
+
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gbc='git bundle create'
+alias gb='git branch'
+alias gf='git fetch'
+alias gs='git status'
+alias gr='git rebase'
+alias gri='git rebase -i'
+alias g='git'
+alias ga='git add'
+alias gk='gitkdeal.sh'
+alias dosonar='bash dosonar.sh `diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1`'
+alias dochangessonar='bash dochangessonar.sh'
+
+source ~/git-completion.bash
+
+__git_complete gco _git_checkout
+__git_complete gcb _git_checkout
+__git_complete gr _git_rebase
+__git_complete gri _git_rebase
+__git_complete gbc _git_bundle_create
+__git_complete gb _git_branch
+__git_complete gf _git_fetch
+__git_complete g _git
+__git_complete ga _git_add

@@ -1,9 +1,15 @@
 #!/bin/bash
-original_name=$0
 
-curl -L https://github.com/JoshuaAndrewGardner/DevSetup/archive/refs/heads/master.zip -o master.zip
-unzip master.zip
+./update_files.sh
 
-cd DevSetup-master
-cp * ../*
+cp .jag_bashrc ~/.jag_bashrc
+if test -f "~/.bashrc"; then
+	# Ensure bashrc is sourcing .jag_bashrc
+	if [[ -z `cat ~/.bashrc | grep "source \.jag_bashrc" | wc -l` ]]; then
+		echo "source .jag_bashrc" >> ~/.bashrc
+	fi
+else
+	# Create bachrc
+	echo "source .jag_bashrc" >> ~/.bashrc
+fi
 
