@@ -21,15 +21,24 @@ function gcm() {
 }
 
 function glog {
-  local messageWidth=$(( 120 < (COLUMNS/2) ? 120 : (COLUMNS/2)))
-  if (( COLUMNS > 150 )); then
-    local branchNamesFormat='|%Cgreen%<(50,trunc)%d'
-  fi
-  git log --color=always --decorate \
-    --pretty=format:"%C(yellow)%h|%Cred%cd|%Cgreen%<(20,trunc)%an|%Creset%<($messageWidth,trunc)%s$branchNamesFormat" \
-    --date=relative -n 100 "$@" \
-    | column --table -s '|' \
-    | less -r
+  local green=$(printf '\033[32m')
+  local s="▕"
+  git log --color=always --decorate --date=relative -n 100 "$@" \
+    --pretty=format:"%C(yellow)%h$s%Cred%cd$s%Cblue%an$s%Creset%s$s%D" \
+    | column --table --separator "$s" --output-separator "$s" \
+    | sed -E "s/$s([^$s]+)$/\n    $green└─ \1/" \
+    | sed -E "s/$s/ /g" \
+    | less -R -S -# 1
+}
+
+# capture the output of a command so it can be retrieved with ret
+cap () { 
+	tee /tmp/capture.out 
+}
+
+# return the output of the most recent command that was captured by cap
+ret () { 
+	cat /tmp/capture.out 
 }
 
 alias glog=glog
@@ -47,10 +56,8 @@ alias gr='git rebase'
 alias gri='git rebase -i'
 alias g='git'
 alias ga='git add'
-alias gk='gitkdeal.sh'
-alias dosonar='bash dosonar.sh `diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1`'
-alias dochangessonar='bash dochangessonar.sh'
 
+source ~/ga-completion.bash
 source ~/git-completion.bash
 
 __git_complete gco _git_checkout
