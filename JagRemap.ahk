@@ -37,9 +37,7 @@ CapsLock & `;::>
 CapsLock & V::|
 CapsLock & B::_
 CapsLock & N::+
-CapsLock & -::
-	Send `/`/______________________________________________________________________________________________________________________
-return 
+
 CapsLock & =::Send `:=
 
 ^Backspace:: Send ^+{Left}{Backspace}
