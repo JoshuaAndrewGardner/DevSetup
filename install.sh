@@ -69,9 +69,9 @@ else
 	
 fi
 
-# cp JagRemap.ahk "$DOCUMENTS\JagRemap.ahk"
-# cp HideCursor.ahk "$DOCUMENTS\HideCursor.ahk"
-powershell ./lib/CreateShortcut.ps1 JagRemap.ahk
-powershell ./lib/CreateShortcut.ps1 HideCursor.ahk
-mv JagRemap.lnk "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\JagRemap.lnk"
-mv HideCursor.lnk "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\HideCursor.lnk"
+cp JagRemap.ahk "$USERPROFILE\JagRemap.ahk"
+cp HideCursor.ahk "$USERPROFILE\HideCursor.ahk"
+powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\JagRemap.ahk'"
+powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\HideCursor.ahk'"
+mv "$USERPROFILE\JagRemap.lnk" "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\JagRemap.lnk"
+mv "$USERPROFILE\HideCursor.lnk" "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\HideCursor.lnk"

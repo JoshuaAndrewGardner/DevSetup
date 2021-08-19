@@ -8,6 +8,7 @@ $DirName = [Path]::GetDirectoryName($SourceFile)
 $FileNameNoExtension = [Path]::GetFileNameWithoutExtension($SourceFile)
 $DestinationPath = Join-Path "$DirName" "$FileNameNoExtension" 
 
+
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$DestinationPath.lnk")
 $Shortcut.TargetPath = "$SourceFile"
