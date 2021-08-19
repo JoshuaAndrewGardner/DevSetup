@@ -1,6 +1,24 @@
 #!/bin/bash
 
-./update_files.sh
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+	key="$1"
+
+	case $key in
+		-u|--update)
+			echo "Updating Files"
+			./update_files.sh
+		;;
+		-h|--help|*)
+			echo "Usage: install.sh"
+			echo "	For standard install"
+			echo "Usage: install.sh -u"
+			echo "	For updating the files before installing"
+			exit
+		;;
+	esac
+	shift
+done
 
 cp .jag_bashrc ~/.jag_bashrc
 cp git-completion.bash ~/git-completion.bash
@@ -50,3 +68,10 @@ else
 	fi
 	
 fi
+
+# cp JagRemap.ahk "$DOCUMENTS\JagRemap.ahk"
+# cp HideCursor.ahk "$DOCUMENTS\HideCursor.ahk"
+powershell ./lib/CreateShortcut.ps1 JagRemap.ahk
+powershell ./lib/CreateShortcut.ps1 HideCursor.ahk
+mv JagRemap.lnk "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\JagRemap.lnk"
+mv HideCursor.lnk "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\HideCursor.lnk"
