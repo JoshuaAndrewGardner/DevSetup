@@ -69,9 +69,15 @@ else
 	
 fi
 
-cp JagRemap.ahk "$USERPROFILE\JagRemap.ahk"
+rm -f JagRemap.zip
+curl -JLO https://github.com/JoshuaAndrewGardner/JagRemap/releases/latest/download/JagRemap.zip
+unzip -o JagRemap.zip
+
+cp -rf JagRemap "$USERPROFILE\JagRemap"
 cp HideCursor.ahk "$USERPROFILE\HideCursor.ahk"
-powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\JagRemap.ahk'"
+
+powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\JagRemap\JagRemap.exe'"
+mv "$USERPROFILE\JagRemap\JagRemap.lnk" "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\JagRemap.lnk"
+
 powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\HideCursor.ahk'"
-mv "$USERPROFILE\JagRemap.lnk" "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\JagRemap.lnk"
 mv "$USERPROFILE\HideCursor.lnk" "$APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\HideCursor.lnk"
