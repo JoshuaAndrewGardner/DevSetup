@@ -69,11 +69,12 @@ else
 	
 fi
 
-rm -f JagRemap.zip
 curl -JLO https://github.com/JoshuaAndrewGardner/JagRemap/releases/latest/download/JagRemap.zip
 unzip -o JagRemap.zip
+rm JagRemap.zip
 
 cp -rf JagRemap "$USERPROFILE\JagRemap"
+rm -r JagRemap
 cp HideCursor.ahk "$USERPROFILE\HideCursor.ahk"
 
 powershell ./lib/CreateShortcut.ps1 "'$USERPROFILE\JagRemap\JagRemap.exe'"
